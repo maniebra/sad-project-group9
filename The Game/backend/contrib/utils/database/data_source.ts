@@ -19,12 +19,7 @@ config.APPS.forEach((installedApp: string) => {
 
 // Create the AppDataSource
 export const AppDataSource = new DataSource({
-    type: config.DB_TYPE,
-    host: config.DB_HOST,
-    port: config.DB_PORT,
-    username: config.DB_USER,
-    password: config.DB_PASSWORD,
-    database: config.DB_NAME,
-    synchronize: true,
+    type: "sqlite",
+    database: "db.sqlite",
     entities: entities, // Assign the collected entities
 });

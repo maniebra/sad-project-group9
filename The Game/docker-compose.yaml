@@ -20,23 +20,8 @@ services:
       - app-network
     volumes:
       - ./backend:/app
-    depends_on:
-      - db
-
-  db:
-    image: postgres
-    environment:
-      POSTGRES_DB: game
-      POSTGRES_USER: lmsuser
-      POSTGRES_PASSWORD: lmspass
-    volumes:
-      - dbdata:/var/lib/postgresql/data
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-    networks:
-      - app-network
 
 volumes:
-  dbdata:
   frontend:
   backend:
 
