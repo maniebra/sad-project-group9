@@ -50,6 +50,7 @@ export const MIN_PASSWORD_LENGTH: number = parseInt(process.env.MIN_PASSWORD_LEN
 /*=======================================================*/
 
 export const APPS = [
+    "chatgame",
 ]
 
 export const CONTRIB_APPS = [

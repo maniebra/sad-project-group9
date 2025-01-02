@@ -21,5 +21,6 @@ config.APPS.forEach((installedApp: string) => {
 export const AppDataSource = new DataSource({
     type: "sqlite",
     database: "db.sqlite",
+    synchronize: true,
     entities: entities, // Assign the collected entities
 });

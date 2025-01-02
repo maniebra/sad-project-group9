@@ -6,9 +6,9 @@ const router = express.Router();
 
 /**
  * @swagger
- * /logic/test:
+ * /chatgame/test:
  *   post:
- *     tags: [logic]
+ *     tags: [chatgame]
  *     summary: User registration endpoint
  *     requestBody:
  *       required: true
@@ -30,5 +30,8 @@ const router = express.Router();
  *         description: A bad request response
  */
 router.get("/test", controller.sample);
+router.get("/get-all-questions", controller.getQuestions);
+router.get("/get-question-by-id/:id", controller.getQuestionById);
+router.post("/create-question", controller.createQuestion);
 
 module.exports = router;
