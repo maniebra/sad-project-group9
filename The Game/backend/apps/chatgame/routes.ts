@@ -30,6 +30,67 @@ const router = express.Router();
  *         description: A bad request response
  */
 router.get("/test", controller.sample);
+
+/**
+ * @swagger
+ * /chatgame/get-all-questions:
+ *   get:
+ *     tags: [chatgame]
+ *     summary: Get all available questions
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved questions
+ *       500:
+ *         description: Server error
+ * 
+ * /chatgame/get-question-by-id/{id}:
+ *   get:
+ *     tags: [chatgame]
+ *     summary: Get a specific question by ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: Question ID
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved question
+ *       404:
+ *         description: Question not found
+ *       500:
+ *         description: Server error
+ * 
+ * /chatgame/create-question:
+ *   post:
+ *     tags: [chatgame]
+ *     summary: Create a new question
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               question:
+ *                 type: string
+ *                 description: The question text
+ *               correct_answer:
+ *                 type: string
+ *                 description: The correct answer
+ *               incorrect_answer:
+ *                 type: string
+ *                 description: Incorrect answer
+ *     responses:
+ *       200:
+ *         description: Question successfully created
+ *       400:
+ *         description: Invalid request body
+ *       500:
+ *         description: Server error
+ */
+
 router.get("/get-all-questions", controller.getQuestions);
 router.get("/get-question-by-id/:id", controller.getQuestionById);
 router.post("/create-question", controller.createQuestion);
