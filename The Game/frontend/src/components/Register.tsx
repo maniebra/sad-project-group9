@@ -43,6 +43,7 @@ const RegisterPage: React.FC = () => {
         if (response.data?.token) {
           axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
         }
+        window.location.href = "/";
       }
     } catch (error: any) {
       setErrorMessage(
