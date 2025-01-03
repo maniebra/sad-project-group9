@@ -1,5 +1,9 @@
 import { Response, Request } from "express";
 import { AppDataSource } from "@contrib/utils/database/data_source";
+import cors from 'cors';
+import type { CorsOptions } from 'cors';
+
+
 import "reflect-metadata";
 
 const config = require("@settings/config.ts");
@@ -10,6 +14,9 @@ const path = require("path");
 const app = express();
 
 app.use(config.LOGGER);
+app.use(cors({
+  origin: '*'
+}));
 app.use(config.BODY_PARSER.json());
 app.use(config.BODY_PARSER.urlencoded({ extended: false }));
 app.use(config.COOKIE_PARSER());
