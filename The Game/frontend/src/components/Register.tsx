@@ -1,14 +1,40 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 const RegisterPage: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [acceptedTerms, setAcceptedTerms] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission logic
-    console.log({ email, password, acceptedTerms });
+
+    if (!acceptedTerms) {
+      setErrorMessage("You must accept the terms and conditions to register.");
+      return;
+    }
+
+    try {
+      const response = await axios.post("http://0.0.0.0:8000/users/register", {
+        email,
+        password,
+      });
+
+      if (response.status === 201) {
+        setSuccessMessage("Registration successful!");
+        setErrorMessage(null);
+        setEmail("");
+        setPassword("");
+        setAcceptedTerms(false);
+      }
+    } catch (error: any) {
+      setErrorMessage(
+        error.response?.data?.message || "Failed to register. Please try again."
+      );
+      setSuccessMessage(null);
+    }
   };
 
   return (
@@ -17,6 +43,16 @@ const RegisterPage: React.FC = () => {
         onSubmit={handleSubmit}
         className="w-96 bg-white p-6 rounded-lg shadow-lg"
       >
+        <h2 className="text-center text-2xl font-bold mb-6">Register</h2>
+
+        {/* Display Success or Error Messages */}
+        {successMessage && (
+          <p className="mb-4 text-green-600 text-sm">{successMessage}</p>
+        )}
+        {errorMessage && (
+          <p className="mb-4 text-red-600 text-sm">{errorMessage}</p>
+        )}
+
         {/* Email Field */}
         <label className="block mb-2 text-sm font-medium text-gray-700">
           Email

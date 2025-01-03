@@ -24,18 +24,17 @@ const Leaderboard: React.FC = () => {
   ];
 
   return (
-    <div className="flex flex-col h-screen bg-gray-900">
+    <div className="flex flex-col h-screen bg-gray-900 text-white">
       {/* Header */}
-      <div className="flex items-center justify-between p-4 bg-gray-800 text-white">
+      <div className="flex items-center p-4 bg-black text-white">
         <button onClick={() => window.history.back()} className="text-white">
-          <FontAwesomeIcon icon={faArrowLeft} className="h-6 w-6" />
+          <FontAwesomeIcon icon={faArrowLeft} className="h-5 w-5" />
         </button>
-        <h1 className="text-xl font-bold">Game Title</h1>
-        <div className="w-6"></div> {/* Spacer for alignment */}
+        <h1 className="text-xl font-bold justify-center">Game Title</h1>
       </div>
 
       {/* Leaderboard Title */}
-      <h2 className="text-2xl font-bold text-white text-center py-4">
+      <h2 className="text-xl font-medium text-black text-center py-4">
         Leaderboard
       </h2>
 
@@ -44,17 +43,17 @@ const Leaderboard: React.FC = () => {
         {leaderboardData.map((entry, index) => (
           <div
             key={index}
-            className="flex items-center justify-between bg-gray-800 rounded-lg mb-2 p-3"
+            className="flex items-center justify-between mb-4 p-2"
           >
-            <div className="flex items-center">
+            <div className="flex items-center gap-3">
               <img
                 src={entry.avatar}
                 alt={`${entry.name}'s avatar`}
-                className="w-10 h-10 rounded-full mr-3"
+                className="w-12 h-12 rounded-full"
               />
-              <span className="text-white">{entry.name}</span>
+              <span className="text-black text-base">{entry.name}</span>
             </div>
-            <span className="text-white font-bold">{entry.score}</span>
+            <span className="text-black font-normal">{entry.score}</span>
           </div>
         ))}
       </div>

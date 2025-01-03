@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGlobe, faGear } from "@fortawesome/free-solid-svg-icons";
 import Gameover from "../../public/GameOver.png";
@@ -11,6 +11,19 @@ const Game: React.FC = () => {
   const [highestScore, setHighestScore] = useState<number>(0);
 
   const correctAnswer = "Flu";
+
+  // Load the highest score from localStorage on component mount
+  useEffect(() => {
+    const savedHighestScore = localStorage.getItem("highestScore");
+    if (savedHighestScore) {
+      setHighestScore(Number(savedHighestScore));
+    }
+  }, []);
+
+  // Save the highest score to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem("highestScore", highestScore.toString());
+  }, [highestScore]);
 
   const handleTypingBarClick = () => {
     if (messages.length === 0) {
@@ -28,12 +41,15 @@ const Game: React.FC = () => {
         ...prevMessages,
         `It's probably ${option}! Check for other symptoms.`,
       ]);
-      setCurrentScore((prevScore) => prevScore + 1);
+      setCurrentScore((prevScore) => {
+        const newScore = prevScore + 1;
+        setHighestScore((prevHighest) =>
+          newScore > prevHighest ? newScore : prevHighest
+        );
+        return newScore;
+      });
     } else {
       setGameOver(true);
-      setHighestScore((prevHighest) =>
-        currentScore > prevHighest ? currentScore : prevHighest
-      );
     }
     setShowOptions(false);
   };
@@ -134,9 +150,12 @@ const Game: React.FC = () => {
               alt="Ghost"
               className="h-20 w-20 mx-auto mb-4"
             />
-            <p className="text-lg font-semibold mb-2">Score: {currentScore}</p>
+            <p className="text-lg text-gray-800 font-bold mb-2">
+              Score: {currentScore}
+            </p>
             <p className="text-sm text-gray-600 mb-4">
-              Highest Score: {highestScore}
+              Highest Score:{" "}
+              {highestScore > 0 ? highestScore : "No high score yet"}
             </p>
             <button
               onClick={restartGame}
