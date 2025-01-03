@@ -24,36 +24,43 @@ const Leaderboard: React.FC = () => {
   ];
 
   return (
-    <div className="flex flex-col h-screen bg-gray-900 text-white">
+    <div className="flex flex-col h-screen bg-white text-white">
       {/* Header */}
-      <div className="flex items-center p-4 bg-black text-white">
-        <button onClick={() => window.history.back()} className="text-white">
-          <FontAwesomeIcon icon={faArrowLeft} className="h-5 w-5" />
-        </button>
-        <h1 className="text-xl font-bold justify-center">Game Title</h1>
+      <div className="flex items-center justify-between p-4 bg-gray-900">
+        <div className="h-10 w-10 rounded-lg bg-gray-800 flex items-center justify-center">
+          <button onClick={() => window.history.back()} className="text-white">
+            <FontAwesomeIcon icon={faArrowLeft} className="h-5 w-5" />
+          </button>
+        </div>
+        <h1 className="text-xl font-bold text-center">Game Title</h1>
+        <div className="h-10 w-10 rounded-lg bg-gray-800 flex items-center justify-center">
+          AX
+        </div>
       </div>
 
       {/* Leaderboard Title */}
-      <h2 className="text-xl font-medium text-black text-center py-4">
+      <h2 className="text-2xl font-bold text-black text-center py-6">
         Leaderboard
       </h2>
 
       {/* Leaderboard List */}
-      <div className="flex-1 overflow-y-auto px-4">
+      <div className="flex-1 overflow-y-auto px-6 bg-white">
         {leaderboardData.map((entry, index) => (
           <div
             key={index}
-            className="flex items-center justify-between mb-4 p-2"
+            className="flex items-center justify-between py-3 border-b border-gray-200"
           >
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-4">
               <img
                 src={entry.avatar}
                 alt={`${entry.name}'s avatar`}
-                className="w-12 h-12 rounded-full"
+                className="w-10 h-10 rounded-full"
               />
-              <span className="text-black text-base">{entry.name}</span>
+              <span className="text-gray-900 text-lg">{entry.name}</span>
             </div>
-            <span className="text-black font-normal">{entry.score}</span>
+            <span className="text-gray-900 text-lg font-medium">
+              {entry.score}
+            </span>
           </div>
         ))}
       </div>

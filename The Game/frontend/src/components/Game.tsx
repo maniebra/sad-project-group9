@@ -63,18 +63,19 @@ const Game: React.FC = () => {
   return (
     <div className="flex flex-col h-screen bg-gray-900 text-white">
       {/* Header */}
-      <div className="flex items-center justify-between p-4 bg-gray-800">
-        <button
-          className="mr-4"
-          onClick={() => (window.location.href = "/leaderboard")}
-        >
-          <FontAwesomeIcon icon={faGlobe} className="h-6 w-6" />
-        </button>
-        <h1 className="text-xl font-bold justify-center">Game Title</h1>
-
-        <button>
-          <FontAwesomeIcon icon={faGear} className="h-6 w-6" />
-        </button>
+      <div className="flex items-center justify-between p-4 bg-gray-900">
+        <div className="h-10 w-10 rounded-lg bg-gray-800 flex items-center justify-center">
+          <button
+            className="text-white"
+            onClick={() => (window.location.href = "/leaderboard")}
+          >
+            <FontAwesomeIcon icon={faGlobe} className="h-5 w-5" />
+          </button>
+        </div>
+        <h1 className="text-xl font-bold text-center">Game Title</h1>
+        <div className="h-10 w-10 rounded-lg bg-gray-800 flex items-center justify-center">
+          AX
+        </div>
       </div>
 
       {/* Main Content */}
@@ -143,12 +144,12 @@ const Game: React.FC = () => {
       {/* Game Over Modal */}
       {gameOver && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white text-center rounded-lg p-6 shadow-lg">
-            <h2 className="text-2xl font-bold text-red-600 mb-4">Game Over</h2>
+          <div className="bg-white w-96 text-center rounded-lg p-6 shadow-lg">
+            <h2 className="text-4xl font-bold text-red-600 mb-4">Game Over</h2>
             <img
               src={Gameover}
               alt="Ghost"
-              className="h-20 w-20 mx-auto mb-4"
+              className="h-32 w-32 mx-auto mb-4"
             />
             <p className="text-lg text-gray-800 font-bold mb-2">
               Score: {currentScore}
@@ -159,7 +160,7 @@ const Game: React.FC = () => {
             </p>
             <button
               onClick={restartGame}
-              className="px-4 py-2 bg-red-600 text-white rounded-lg"
+              className="px-24 py-2 bg-red-600 text-white rounded-lg"
             >
               Restart
             </button>
