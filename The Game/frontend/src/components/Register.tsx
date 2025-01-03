@@ -57,6 +57,11 @@ const RegisterPage: React.FC = () => {
     window.location.href = "/game";
   }
 
+  const verifyToken = async () => {
+    const response = await axios.get(`http://localhost:8000/users/verify-token`);
+    console.log(response);
+  }
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-200">
       <form

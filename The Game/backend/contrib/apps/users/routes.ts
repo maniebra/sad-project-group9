@@ -63,4 +63,28 @@ router.post("/register", controller.register);
 
 router.post("/auth", controller.authenticate);
 
+/**
+ * @swagger
+ * /users/verify-token:
+ *   get:
+ *     summary: Verify token endpoint
+ *     tags: [users]
+ *     responses:
+ *       200:
+ *         description: A successful response
+ */
+router.get("/verify-token", controller.verifyToken);
+
+/**
+ * @swagger
+ * /users/logout:
+ *   get:
+ *     summary: Logout endpoint
+ *     tags: [users]
+ *     responses:
+ *       200:
+ *         description: A successful response
+ */
+router.get("/logout", controller.logout);
+
 module.exports = router;
