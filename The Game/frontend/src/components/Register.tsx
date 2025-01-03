@@ -21,19 +21,28 @@ const RegisterPage: React.FC = () => {
       const response = await axios.post(
         "http://localhost:8000/users/register",
         {
-          username,
-          password,
-          confirm_password,
+          username: username,
+          password: password,
+          confirm_password: confirm_password
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
       );
 
-      if (response.status === 201) {
+      if (response.status === 200) {
         setSuccessMessage("Registration successful!");
         setErrorMessage(null);
         setUsername("");
         setPassword("");
         setConfirmPassword("");
         setAcceptedTerms(false);
+        // Save the bearer token if it's included in the response
+        if (response.data?.token) {
+          axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+        }
       }
     } catch (error: any) {
       setErrorMessage(

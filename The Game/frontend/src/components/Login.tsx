@@ -1,13 +1,26 @@
+import axios from "axios";
 import React, { useState } from "react";
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // Handle form submission logic
-    console.log({ email, password });
+    const response = await axios.post(`http://localhost:8000/users/login`, {
+      email,
+      password,
+    });
+
+    if (response.status === 200) {
+      setEmail("");
+      setPassword("");
+      if (response.data?.token) {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+      }
+      window.location.href = "/game";
+    }
   };
 
   return (
