@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import axios from "axios";
 
 const RegisterPage: React.FC = () => {
-  const [email, setEmail] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [confirm_password, setConfirmPassword] = useState<string>("");
   const [acceptedTerms, setAcceptedTerms] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
@@ -17,16 +18,21 @@ const RegisterPage: React.FC = () => {
     }
 
     try {
-      const response = await axios.post("http://0.0.0.0:8000/users/register", {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        "http://localhost:8000/users/register",
+        {
+          username,
+          password,
+          confirm_password,
+        }
+      );
 
       if (response.status === 201) {
         setSuccessMessage("Registration successful!");
         setErrorMessage(null);
-        setEmail("");
+        setUsername("");
         setPassword("");
+        setConfirmPassword("");
         setAcceptedTerms(false);
       }
     } catch (error: any) {
@@ -60,8 +66,8 @@ const RegisterPage: React.FC = () => {
         <input
           type="email"
           placeholder="john.smith@gmail.com"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
           required
           className="w-full p-2 border border-gray-300 rounded-lg mb-4"
         />
@@ -75,6 +81,18 @@ const RegisterPage: React.FC = () => {
           placeholder="********"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          required
+          className="w-full p-2 border border-gray-300 rounded-lg mb-4"
+        />
+
+        <label className="block mb-2 text-sm font-medium text-gray-700">
+          Confirm Password
+        </label>
+        <input
+          type="confirm password"
+          placeholder="********"
+          value={confirm_password}
+          onChange={(e) => setConfirmPassword(e.target.value)}
           required
           className="w-full p-2 border border-gray-300 rounded-lg mb-4"
         />
