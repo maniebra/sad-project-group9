@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -21,20 +21,38 @@ const LoginPage: React.FC = () => {
     );
 
     console.log(response);
-
     if (response.status === 200) {
       setEmail("");
       setPassword("");
       if (response.data?.token) {
-        axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+        const token = response.data.token;
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         window.location.href = "/game";
       }
     }
   };
 
-  if (axios.defaults.headers.common['Authorization']) {
-    window.location.href = "/game";
+  const verifyToken = async () => {
+    try {
+      const response = await axios.get(`http://localhost:8000/users/verify-token`);
+      return response.status === 200;
+    } catch (error) {
+      return false;
+    }
   }
+
+  useEffect(() => {
+    const checkToken = async () => {
+      try {
+        if (axios.defaults.headers.common['Authorization'] && await verifyToken()) {
+          window.location.href = "/game";
+        }
+      } catch (error) {
+        console.error("Error checking token:", error);
+      }
+    };
+    checkToken();
+  }, []);
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-200">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const RegisterPage: React.FC = () => {
@@ -53,14 +53,19 @@ const RegisterPage: React.FC = () => {
     }
   };
 
-  if (axios.defaults.headers.common['Authorization']) {
-    window.location.href = "/game";
-  }
-
   const verifyToken = async () => {
     const response = await axios.get(`http://localhost:8000/users/verify-token`);
-    console.log(response);
+    return response.status === 200;
   }
+
+  useEffect(() => {
+    const checkToken = async () => {
+      if (axios.defaults.headers.common['Authorization'] && await verifyToken()) {
+        window.location.href = "/game";
+      }
+    };
+    checkToken();
+  }, []);
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-200">
