@@ -6,7 +6,7 @@ WORKDIR /app
 
 ADD . /app/
 
-RUN npm install -g pnpm
+RUN npm install -g pnpm vite
 
 # Add the `node_modules/.bin` to $PATH
 ENV PATH /app/node_modules/.bin:$PATH
