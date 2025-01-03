@@ -6,20 +6,29 @@ const LoginPage: React.FC = () => {
   const [password, setPassword] = useState<string>("");
 
   const handleSubmit = async (e: React.FormEvent) => {
+    const username = email;
     e.preventDefault();
     // Handle form submission logic
-    const response = await axios.post(`http://localhost:8000/users/login`, {
-      email,
+    const response = await axios.post(`http://localhost:8000/users/auth`, {
+      username,
       password,
-    });
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+    );
+
+    console.log(response);
 
     if (response.status === 200) {
       setEmail("");
       setPassword("");
       if (response.data?.token) {
         axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+        window.location.href = "/game";
       }
-      window.location.href = "/game";
     }
   };
 
@@ -61,7 +70,7 @@ const LoginPage: React.FC = () => {
         <button
           type="submit"
           className="w-full bg-black text-white p-2 rounded-lg hover:bg-gray-800"
-          onClick={() => (window.location.href = "/game")}
+          onClick={handleSubmit}
         >
           Sign In
         </button>
