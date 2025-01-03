@@ -48,6 +48,7 @@ const LoginPage: React.FC = () => {
         <button
           type="submit"
           className="w-full bg-black text-white p-2 rounded-lg hover:bg-gray-800"
+          onClick={() => (window.location.href = "/game")}
         >
           Sign In
         </button>
