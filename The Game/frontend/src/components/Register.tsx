@@ -53,6 +53,10 @@ const RegisterPage: React.FC = () => {
     }
   };
 
+  if (axios.defaults.headers.common['Authorization']) {
+    window.location.href = "/game";
+  }
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-200">
       <form

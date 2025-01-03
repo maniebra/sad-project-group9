@@ -90,3 +90,18 @@ export async function authenticate(req: Request, res: Response) {
     res.setHeader('Authorization', `Bearer ${token}`);
     res.status(200).json({ user, token });
 }
+
+export async function logout(req: Request, res: Response) {
+    res.setHeader('Authorization', '');
+    res.status(200).json({ message: "Logged out successfully!" });
+}
+
+export async function verifyToken(req: Request, res: Response) {
+    const token = req.headers.authorization?.split(' ')[1];
+    const decoded = jwt.verify(token, config.JWT_SECRET);
+    if (decoded) {
+        res.status(200).json({ message: "Token is valid!" });
+    } else {
+        res.status(400).json({ error: "Token is invalid!" });
+    }
+}
