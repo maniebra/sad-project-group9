@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import { Question } from "./models";
+import jwt from 'jsonwebtoken';
+const config = require('@settings/config.ts');
 
 export function sample(req: Request, res: Response, next?: Function) {
     res.status(200).json(
@@ -32,6 +34,29 @@ export async function getQuestionById(req: Request, res: Response, next?: Functi
 }
 
 export async function createQuestion(req: Request, res: Response, next?: Function) {
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        res.status(401).json(
+            {
+                "message": "Unauthorized"
+            }
+        );
+        return;
+    }
+
+    const token = authHeader.split(' ')[1];
+    let user;
+    try {
+        user = jwt.verify(token, config.JWT_SECRET);
+    } catch (error) {
+        res.status(401).json(
+            {
+                "message": "Unauthorized"
+            }
+        );
+        return;
+    }
+
     const params = {
         question: req.body.question,
         correct_answer: req.body.correct_answer,

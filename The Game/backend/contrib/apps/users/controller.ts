@@ -47,7 +47,7 @@ export async function register(req: Request, res: Response) {
             config.JWT_SECRET,
             { expiresIn: config.JWT_EXPIRATION_TIME } 
         );
-
+        res.setHeader('Authorization', `Bearer ${token}`);
         res.status(200).json({ user: savedUser, token });
     } catch (error: unknown) {
         res.status(400).json({ error: "Something went wrong!" });
@@ -87,5 +87,6 @@ export async function authenticate(req: Request, res: Response) {
         { expiresIn: config.JWT_EXPIRATION_TIME }
     );
 
+    res.setHeader('Authorization', `Bearer ${token}`);
     res.status(200).json({ user, token });
 }
