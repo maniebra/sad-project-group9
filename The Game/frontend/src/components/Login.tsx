@@ -55,7 +55,7 @@ const LoginPage: React.FC = () => {
 
         {/* Links */}
         <p className="text-center mt-4 text-sm">
-          <a href="/forgot-password" className="text-blue-500 hover:underline">
+          <a href="/forget-pass" className="text-blue-500 hover:underline">
             Forgot password?
           </a>
         </p>
