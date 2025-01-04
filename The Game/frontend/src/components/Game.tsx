@@ -72,7 +72,7 @@ const Game: React.FC = () => {
             <FontAwesomeIcon icon={faGlobe} className="h-5 w-5" />
           </button>
         </div>
-        <h1 className="text-xl font-bold text-center">Game Title</h1>
+        <h1 className="text-xl font-bold text-center">Missing Doc</h1>
         <div className="h-10 w-10 rounded-lg bg-gray-800 flex items-center justify-center">
           AX
         </div>
